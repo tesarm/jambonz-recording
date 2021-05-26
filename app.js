@@ -1,17 +1,22 @@
-const opts = Object.assign({
-  timestamp: () => {
-    return `, "time": "${new Date().toISOString()}"`;
-  }
-}, {
-  level: process.env.JAMBONES_LOGLEVEL || 'info'
-});
-const logger = require('pino')(opts);
-
+const config = require('./config');
+const loggerOpts = {
+  timestamp: () => `, "time": "${new Date().toISOString()}"`,
+  level: config.logLevel
+};
+const logger = require('pino')(loggerOpts);
 const express = require('express');
+const cors = require('cors');
+
+const routes = require('./lib/routes/index');
+
 const app = express();
-
-const PORT = process.env.HTTP_PORT || 3000;
-
+app.use(cors());
+app.use('/', routes);
+app.use((err, req, res, next) => {
+  logger.error(err, 'burped error');
+  res.status(err.status || 500).json({msg: err.message});
+});
 app.get('/', (req, res) => res.send('hello world'));
 
-app.listen(PORT, () => logger.info(`listening for HTTP traffic on port ${PORT}`));
+
+app.listen(config.httpPort, () => logger.info(`listening for HTTP traffic on port ${config.httpPort}`));
