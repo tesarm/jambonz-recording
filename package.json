@@ -1,0 +1,43 @@
+{
+  "name": "jambonz-recording",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "jslint": "eslint app.js lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tesarm/jambonz-recording.git"
+  },
+  "author": "= <=>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tesarm/jambonz-recording/issues"
+  },
+  "homepage": "https://github.com/tesarm/jambonz-recording#readme",
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
+    ]
+  },
+  "devDependencies": {
+    "eslint": "^7.27.0",
+    "eslint-plugin-promise": "^5.1.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "pino": "^6.11.3"
+  }
+}
