@@ -15,6 +15,12 @@ const ws = require('./lib/ws/handler');
 const app = express();
 expressWs(app);
 
+app.locals = app.locals || {};
+app.locals = {
+  ...app.locals,
+  logger
+};
+
 app.use(cors());
 app.use('/', routes);
 app.ws('/', ws);
